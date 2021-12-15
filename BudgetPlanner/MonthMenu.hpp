@@ -1,3 +1,9 @@
+/*
+	MonthMenu: This class handles the month menu and actions
+	@file MonthMenu.hpp
+	@author Alejandro García
+	@version 1.0 2/15/21
+*/
 #ifndef HEADER_MONTHMENU
 #define HEADER_MONTHMENU
 

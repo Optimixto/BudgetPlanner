@@ -1,3 +1,9 @@
+/*
+	BudgetPlanner: This class handles the list of months and the reading/writing of files.
+	@file BudgetPlanner.hpp
+	@author Alejandro García, Ruthra Bellen
+	@version 1.0 2/15/21
+*/
 #ifndef HEADER_BUDGETPLANNER
 #define HEADER_BUDGETPLANNER
 
@@ -19,7 +25,8 @@ public:
 	void AddMonth(string monthName);
 	int AccessMonth(string monthName);
 	void PrintBudgetPlanner();
-	bool ReadDocument(std::string fileName, std::vector<std::string>& vecOfStrs);
-	void WriteDocument(std::vector<std::string>& vecOfStrs);
+	bool ReadDocument(string fileName, vector<string>& vecOfStrs);
+	static void WriteDocument(vector<string>& vecOfStrs);
+	void SplitString(vector<string>& vecOfStr, vector<string>& v);
 };
 #endif

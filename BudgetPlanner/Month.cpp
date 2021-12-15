@@ -58,10 +58,14 @@ void Month::DeleteEntry(string entryToDelete)
   }
 }
 
+int Month::GetSize() {
+    return entries.size();
+}
+
 //TODO
 void Month::SortEntries()
 {
-    
+
 }
 
 void Month::PrintMonth()

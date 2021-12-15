@@ -30,7 +30,7 @@ void BudgetPlannerMenu::MainMenu(BudgetPlanner budget)
         switch (choice)
         {
             case 1: OpenMonth(budget); break;
-            case 2: ExitProgram(); break;
+            case 2: ExitProgram(budget); break;
             default: cout << "Invalid! \n"; break;
         }
     } while (!(choice > 0 && choice < 3));
@@ -53,8 +53,31 @@ void BudgetPlannerMenu::OpenMonth(BudgetPlanner budget)
     }
 }
 
-void BudgetPlannerMenu::ExitProgram()
+void BudgetPlannerMenu::ExitProgram(BudgetPlanner budget)
 {
-    //TODO -> WriteDataIntoFile();
+    vector<string> vecOfStr;
+    string dataEntry, currentMonth;
+
+    //Go through the month list
+    for (decltype(budget.months.size()) i = 0; i < budget.months.size(); i++)
+    {
+        dataEntry = "";
+        currentMonth = "";
+        currentMonth = budget.months.at(i).GetName();
+        for (decltype(budget.months.at(i).GetSize()) j = 0; j < budget.months.at(i).GetSize(); j++)
+        {
+            //If Income
+            if (budget.months.at(i).entries.at(j).BudgetImpact()>0)
+                dataEntry = currentMonth + " income " + budget.months.at(i).entries.at(j).GetSource() + " " + to_string(abs(budget.months.at(i).entries.at(j).BudgetImpact()));
+            else
+                dataEntry = currentMonth + " expense " + budget.months.at(i).entries.at(j).GetSource() + " " + to_string(abs(budget.months.at(i).entries.at(j).BudgetImpact()));
+
+            vecOfStr.push_back(dataEntry);
+        }
+    }
+    // for each month, go through the entries
+    // format each entry as a line in the vecofStr
+
+    BudgetPlanner::WriteDocument(vecOfStr);
     exit(0);
 }

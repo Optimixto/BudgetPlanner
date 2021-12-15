@@ -38,7 +38,7 @@ void MonthMenu::LowerMenu(string monthName, BudgetPlanner budget)
             case 2: ModifyEntryAmountDisplay(monthName, budget); break;
             case 3: DeleteEntryInOutDisplay(monthName, budget); break;
             case 4: GoBackToBudgetPlanner(budget); break;
-            case 5: BudgetPlannerMenu::ExitProgram(); break;
+            case 5: BudgetPlannerMenu::ExitProgram(budget); break;
             default: cout << "Invalid! \n"; break;
         }
     } while (!(choice > 0 && choice < 6));

@@ -1,3 +1,14 @@
+/*
+    main: Main file, runs the whole program. Includes some tests.
+    @file main.c
+    @author Alejandro García, Ruthra Bellen, Smruthi Ravichandran, Tahir Uddin Khan
+    @version 1.0 2/15/21
+
+   <copyright file="«BudgetPlanner»" company="«SRH»">
+      Author: Alejandro García, Ruthra Bellen, Smruthi Ravichandran, Tahir Uddin Khan
+      Copyright (c). All rights reserved.
+   </copyright>
+*/
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,6 +18,7 @@
 
 using namespace std;
 
+//Sample Data for the tests
 BudgetPlanner sampleData()
 {
     BudgetPlanner myBudget;
@@ -39,6 +51,7 @@ BudgetPlanner sampleData()
     return myBudget;
 }
 
+//Simple tests for the Budget Planner functionalities
 void tests()
 {
     //Tests BudgetPlanner:
@@ -87,9 +100,58 @@ void tests()
 }
 
 int main () {
-    
-    //tests();
-    //TODO -> Read data
+    BudgetPlanner budget;
+    vector<string> rawVector;
+    vector<string> splitVector;
 
-    BudgetPlannerMenu::MainMenu(sampleData());
+    //If the file can't be opened, change the path to where your budget.txt location
+    bool isRead = budget.ReadDocument("D://SRH//AdvProg//Task4//BudgetPlanner//BudgetPlanner//budget.txt", rawVector);
+
+    if (!isRead)
+        BudgetPlannerMenu::ExitProgram(budget);
+
+    //Splits the data
+    budget.SplitString(rawVector, splitVector);
+
+    //Enter the data in the budget instance
+    int counter = 0;
+    string monthName, source;
+    bool isExpense;
+    float amount;
+
+    for (int i = 0; i < splitVector.size(); i++) {
+        switch (counter)
+        {
+            case 0: {
+                monthName = splitVector.at(i);
+                counter++;
+                break;
+            }
+            case 1: {
+                if (!(splitVector.at(i) == "expense"))
+                    isExpense = false;
+                else
+                    isExpense = true;
+                counter++;
+                break;
+            }
+            case 2: {
+                source = splitVector.at(i);
+                counter++;
+                break;
+            }
+            case 3: {
+                amount = stof(splitVector.at(i));
+                budget.AddMonth(monthName);
+                int monthPosition = budget.AccessMonth(monthName);
+                budget.months.at(monthPosition).AddEntry(source, isExpense, amount);
+                counter=0;
+                break;
+            }
+            default: cout << "Invalid! \n"; break;
+        }
+    }
+
+    //Starts the program
+    BudgetPlannerMenu::MainMenu(budget);
 }
